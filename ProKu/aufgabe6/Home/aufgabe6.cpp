@@ -75,7 +75,7 @@ int main() {
                                             for (int col = 1; col < breite;
                                                  col++) {
                                                 std::cout
-                                                    << "  ---  "
+                                                    << "     "
                                                     << pixelVal[row * breite +
                                                                 col];
                                             }
