@@ -3,9 +3,13 @@
 #include "jpeg_io.hpp"
 #include "parse.hpp"
 
-int main(int argc, char* argv[])
-{
-  // TODO: Fuell mich mit Leben!
+int main(int argc, char* argv[]) {
+    char* dateiNAme;
+    int breite, hoehe, kmax;
+    double cx, cy, rmax;
 
-  return 0;
+    if (argc == 9) {
+        dateiNAme = argv[0];
+        if (parse(argv[1], breite)) }
+    return 0;
 }
