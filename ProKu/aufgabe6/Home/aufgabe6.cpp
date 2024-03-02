@@ -12,7 +12,8 @@ int main() {
     const char *argv[] = {"PFAD", "Dateiname", "20",   "20",  "1.6",
                           "1.2",  "0.41",      "0.14", "100", "100"};
     const char *dateiNAme;
-    int breite, hoehe, kmax;  //natuerlich kann ich auch uInt verwenden...die Frage kommt eh
+    int breite, hoehe,
+        kmax;  // natuerlich kann ich auch uInt verwenden...die Frage kommt eh
     double cx, cy, rx, ry, rmax;
     // std::cout << argc << std::endl;
     // for (int i(0); i < argc; ++i) {
@@ -83,7 +84,7 @@ int main() {
                                                       << std::endl;
                                         }
                                         std::cout << std::defaultfloat;
-                                        delete pixelVal;
+                                        delete[] pixelVal;
                                     } else
                                         std ::cout
                                             << "Mit der kmax stimmt was nicht!"
