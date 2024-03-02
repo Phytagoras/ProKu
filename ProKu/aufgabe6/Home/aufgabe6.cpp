@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 
 #include "parse.hpp"
@@ -8,7 +9,7 @@ double escape_time(double x, double y, double cx, double cy, double rmax,
 
 int main() {
     int argc = 10;
-    const char *argv[] = {"PFAD", "Dateiname", "1280", "960", "1.6",
+    const char *argv[] = {"PFAD", "Dateiname", "20",   "20",  "1.6",
                           "1.2",  "0.41",      "0.14", "100", "100"};
     const char *dateiNAme;
     int breite, hoehe, kmax;
@@ -16,7 +17,6 @@ int main() {
     // std::cout << argc << std::endl;
     // for (int i(0); i < argc; ++i) {
     //     std ::cout << i << ": '" << argv[i] << "'" << std ::endl;
-    // && XXXXXX >= XXXXXXX && XXXXXXX <= XXXXXXX
     // }
     if (argc == 10) {
         dateiNAme = argv[1];
@@ -48,7 +48,7 @@ int main() {
                                         double *pixelVal =
                                             new double[breite * hoehe];
                                         for (int row = 0; row < hoehe; row++) {
-                                            for (int col = 0; row < breite;
+                                            for (int col = 0; col < breite;
                                                  col++) {
                                                 double value = escape_time(
                                                     transform(row, hoehe, rx),
@@ -56,9 +56,33 @@ int main() {
                                                     cx, cy, rmax, kmax);
                                                 pixelVal[row * breite + col] =
                                                     value;
+                                                std::cout << row << "  " << col
+                                                          << std::endl;
                                             }
                                         }
-
+                                        // bool writeJpeg =
+                                        //     if (write_jpeg(
+                                        //             breite,
+                                        //             hoehe,
+                                        //             pixelVal,
+                                        //             dateiName));
+                                        std::cout << std::fixed
+                                                  << std::setprecision(2);
+                                        for (int row = 0; row < hoehe; row++) {
+                                            std::cout
+                                                << "| "
+                                                << pixelVal[row * breite + 0];
+                                            for (int col = 1; col < breite;
+                                                 col++) {
+                                                std::cout
+                                                    << "  ---  "
+                                                    << pixelVal[row * breite +
+                                                                col];
+                                            }
+                                            std::cout << " |" << std::endl
+                                                      << std::endl;
+                                        }
+                                        std::cout << std::defaultfloat;
                                         delete pixelVal;
                                     } else
                                         std ::cout
