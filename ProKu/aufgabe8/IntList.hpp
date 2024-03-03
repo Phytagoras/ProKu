@@ -18,4 +18,5 @@ class IntList {
     bool test() const;
 
     int size() const;
+    int find(int toFind) const;
 };  // class IntList

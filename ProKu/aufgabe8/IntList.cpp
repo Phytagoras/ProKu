@@ -113,3 +113,16 @@ int IntList::size() const {
     }
     return counter;
 }
+
+int IntList::find(int toFind) const {
+    const IntListElement* ptr(head);
+    int counter = 0;
+    while (ptr != nullptr) {
+        if (ptr->value == toFind) {
+            counter++;
+        }
+        // Und gehe zum naechsten Element ueber:
+        ptr = ptr->next;
+    }
+    return counter;
+}

@@ -107,13 +107,33 @@ int main() {
                 // Liste testen
                 list.test();
                 break;
+                // TODO: weitere Befehle einfuegen
+                {
+                    using namespace std;
+                    case 's':
+                    case 'S':
+                        cout << list.size() << endl;
+                        break;
 
-            // TODO: weitere Befehle einfuegen
-            case 's':
-            case 'S':
-                std::cout << list.size() << std::endl;
-                break;
+                    case 'f':
+                    case 'F':
+                        int elmnt;
+                        if (read_int(elmnt)) {
+                            int count = list.find(elmnt);
+                            if (count == 0) {
+                                cout << "Das Element " << elmnt
+                                     << " ist nicht in der Liste!" << endl;
+                            } else {
+                                cout << "Das Element " << elmnt << " ist "
+                                     << count << " mal in der Liste!" << endl;
+                            }
 
+                        } else {
+                            cout << "Fehler - Zu suchendes Element fehlt!"
+                                 << endl;
+                        }
+                        break;
+                }
             default:
                 std::cout << "FEHLER: unbekannter Befehl '" << command << "'"
                           << std::endl;
