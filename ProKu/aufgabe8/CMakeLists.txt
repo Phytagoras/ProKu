@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 # C++11 Standard verwenden
 set(CMAKE_CXX_STANDARD 11)
@@ -11,4 +11,4 @@ add_compile_options(-Wextra -Wshadow -Wconversion -Wno-unused)
 project(aufgabe8)
 
 # die Liste aller ausfuehrbaren Programe
-add_executable(aufgabe8 aufgabe8.cpp)
+add_executable(aufgabe8 aufgabe8.cpp aufgabe8.hpp IntListElement.cpp IntListElement.hpp IntList.cpp IntList.hpp)
