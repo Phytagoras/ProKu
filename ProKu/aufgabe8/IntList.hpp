@@ -21,5 +21,8 @@ class IntList {
     
     int find(int toFind) const;
     void insert(int newValue);
+    void erase(int p_int);
+
+    void clear();
 
 };  // class IntList

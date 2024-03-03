@@ -132,21 +132,43 @@ void IntList::insert(int newValue) {
         head = new IntListElement(newValue);
         return;
     }
-    if(head->value > newValue){
+    if (head->value > newValue) {
         IntListElement* tmpPtr = head;
         head = new IntListElement(newValue, tmpPtr);
         return;
     }
 
     IntListElement* ptr(head);
-    int counter = 0;
     while (ptr->next != nullptr) {
         if (ptr->next->value < newValue) {
-            ptr = ptr ->next;
-        }else
+            ptr = ptr->next;
+        } else
             break;
     }
 
     IntListElement* tmpPtr = ptr->next;
     ptr->next = new IntListElement(newValue, tmpPtr);
+}
+void IntList::erase(int p_int) {
+    while (head != nullptr &&
+        head->value == p_int) { 
+        IntListElement* tmpPtr = head->next;
+        delete head;
+        head = tmpPtr;
+    }
+    IntListElement* ptr(head);
+    while (ptr->next != nullptr) {
+        if (ptr->next->value == p_int) {
+            IntListElement* tmpPtr = ptr->next->next;
+            delete ptr->next;
+            ptr->next = tmpPtr;
+        } 
+    }
+}
+void IntList::clear() {
+    while (head != nullptr) { 
+        IntListElement* tmpPtr = head->next;
+        delete head;
+        head = tmpPtr;
+    }
 }

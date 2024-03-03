@@ -1,10 +1,16 @@
 {
-  "cmake.debugConfig": {
-    "args": [
-      "9", "24", "13", "6", "13", "7"
-    ]
-},
-"files.associations": {
-    "ostream": "cpp"
-}
+    "cmake.debugConfig": {
+        "args": [
+            "9",
+            "24",
+            "13",
+            "6",
+            "13",
+            "7"
+        ]
+    },
+    "files.associations": {
+        "ostream": "cpp",
+        "new": "cpp"
+    }
 }

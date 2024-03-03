@@ -59,14 +59,12 @@ bool parse_int(const char* str, int& i) {
     return !(iss >> i).fail();
 }
 
- int main(int argc, char const* argv[]) {
+int main(int argc, char const* argv[]) {
     // Erstelle ein Objekt vom Typ IntList:
     IntList list;
-    std::cout << argc << std::endl;
     for (int i = 1; i < argc; i++) {
         int tmp;
 
-        std::cout << argv[i] << std::endl;
         assert(parse_int(argv[i], tmp));
         list.insert(tmp);
     }
@@ -138,6 +136,26 @@ bool parse_int(const char* str, int& i) {
                             list.print();
                         } else {
                             cout << "Fehler - Einzufuegendes Element fehlt!"
+                                 << endl;
+                        }
+                        break;
+
+                    case 'e':
+                    case 'E':
+                        elmnt = -1;
+                        if (read_int(elmnt)) {
+                            int count = list.find(elmnt);
+                            if (count == 0) {
+                                cout << "Das Element " << elmnt
+                                     << " ist nicht in der Liste!" << endl;
+                            } else {
+                                cout << "Das Element " << elmnt << " wurde "
+                                     << count << " mal geloescht!" << endl;
+                            }
+                            list.erase(elmnt);
+
+                        } else {
+                            cout << "Fehler - Zu loeschendes Element fehlt!"
                                  << endl;
                         }
                         break;
