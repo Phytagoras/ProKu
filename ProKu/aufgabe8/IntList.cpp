@@ -128,12 +128,12 @@ int IntList::find(int toFind) const {
 }
 
 void IntList::insert(int newValue) {
-    if (size() == 0) {
+    if (head == nullptr) {
         head = new IntListElement(newValue);
         return;
     }
     if(head->value > newValue){
-        IntListElement* tmpPtr = head->next;
+        IntListElement* tmpPtr = head;
         head = new IntListElement(newValue, tmpPtr);
         return;
     }

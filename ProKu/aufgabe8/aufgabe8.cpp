@@ -62,9 +62,11 @@ bool parse_int(const char* str, int& i) {
  int main(int argc, char const* argv[]) {
     // Erstelle ein Objekt vom Typ IntList:
     IntList list;
-
-    for (int i = 1; i < argc; i++){
+    std::cout << argc << std::endl;
+    for (int i = 1; i < argc; i++) {
         int tmp;
+
+        std::cout << argv[i] << std::endl;
         assert(parse_int(argv[i], tmp));
         list.insert(tmp);
     }
