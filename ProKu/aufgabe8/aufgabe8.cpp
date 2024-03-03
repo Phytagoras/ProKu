@@ -89,6 +89,7 @@ int main() {
         if (!read_char(command)) continue;
 
         // Welcher Befehl ist das?
+        int elmnt;
         switch (command) {
             case 'Q':
             case 'q':
@@ -117,7 +118,7 @@ int main() {
 
                     case 'f':
                     case 'F':
-                        int elmnt;
+                        elmnt = -1;
                         if (read_int(elmnt)) {
                             int count = list.find(elmnt);
                             if (count == 0) {
@@ -130,6 +131,17 @@ int main() {
 
                         } else {
                             cout << "Fehler - Zu suchendes Element fehlt!"
+                                 << endl;
+                        }
+                        break;
+                    case 'i':
+                    case 'I':
+                        elmnt = -1;
+                        if (read_int(elmnt)) {
+                            list.insert(elmnt);
+                            list.print();
+                        } else {
+                            cout << "Fehler - Einzufuegendes Element fehlt!"
                                  << endl;
                         }
                         break;

@@ -126,3 +126,27 @@ int IntList::find(int toFind) const {
     }
     return counter;
 }
+
+void IntList::insert(int newValue) {
+    if (size() == 0) {
+        head = new IntListElement(newValue);
+        return;
+    }
+    if(head->value > newValue){
+        IntListElement* tmpPtr = head->next;
+        head = new IntListElement(newValue, tmpPtr);
+        return;
+    }
+
+    IntListElement* ptr(head);
+    int counter = 0;
+    while (ptr->next != nullptr) {
+        if (ptr->next->value < newValue) {
+            ptr = ptr ->next;
+        }else
+            break;
+    }
+
+    IntListElement* tmpPtr = ptr->next;
+    ptr->next = new IntListElement(newValue, tmpPtr);
+}
