@@ -157,12 +157,14 @@ void IntList::erase(int p_int) {
         head = tmpPtr;
     }
     IntListElement* ptr(head);
-    while (ptr->next != nullptr) {
+    while (ptr != nullptr && ptr->next != nullptr) {
         if (ptr->next->value == p_int) {
             IntListElement* tmpPtr = ptr->next->next;
             delete ptr->next;
             ptr->next = tmpPtr;
-        } 
+            continue;       //sonst wird nach dem loeschen ein element uebersprungen
+        }
+        ptr = ptr->next;
     }
 }
 void IntList::clear() {
@@ -172,3 +174,4 @@ void IntList::clear() {
         head = tmpPtr;
     }
 }
+IntList::~IntList() { clear(); }

@@ -153,11 +153,16 @@ int main(int argc, char const* argv[]) {
                                      << count << " mal geloescht!" << endl;
                             }
                             list.erase(elmnt);
+                            list.print();
 
                         } else {
                             cout << "Fehler - Zu loeschendes Element fehlt!"
                                  << endl;
                         }
+                        break;
+                    case 'c':
+                    case 'C':
+                        list.clear();
                         break;
                 }
             default:

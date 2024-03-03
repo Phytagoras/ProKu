@@ -24,5 +24,6 @@ class IntList {
     void erase(int p_int);
 
     void clear();
+    ~IntList();
 
 };  // class IntList
