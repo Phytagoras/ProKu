@@ -42,4 +42,4 @@ bool read_int(int& i);
 // true, falls die Zeichenkette konvertiert wurde, sonst false
 bool parse_int(const char* str, int& i);
 
-int main();
+int main(int argc, char const* argv[]);

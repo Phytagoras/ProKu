@@ -59,22 +59,16 @@ bool parse_int(const char* str, int& i) {
     return !(iss >> i).fail();
 }
 
-int main() {
+ int main(int argc, char const* argv[]) {
     // Erstelle ein Objekt vom Typ IntList:
     IntList list;
 
-    // >>>>>>>>>> TESTWEISE >>>>>>>>>>
-    // Wichtig:
-    // Loeschen Sie diesen Test-Code, wenn Sie bei Teilaufgabe d) ankommen!
-    // Erstelle 5 Elemente auf dem Stack und verkette sie von Hand:
-    IntListElement elem_0(7, nullptr);
-    IntListElement elem_1(5, &elem_0);
-    IntListElement elem_2(5, &elem_1);
-    IntListElement elem_3(3, &elem_2);
-    IntListElement elem_4(2, &elem_3);
-    // Haenge die Elemente in die Liste ein:
-    list.head = &elem_4;
-    // <<<<<<<<<< TESTWEISE <<<<<<<<<<
+    for (int i = 1; i < argc; i++){
+        int tmp;
+        assert(parse_int(argv[i], tmp));
+        list.insert(tmp);
+    }
+    list.print();
 
     // Endlos-Eingabe-Schleife:
     bool quit(false);
