@@ -3,13 +3,9 @@
 
 #include "image.hpp"
 
-void threshold(Image& img) {
-    // TODO
-}
+void threshold(Image& img);
 
-void floyd_steinberg(Image& img) {
-    // TODO
-}
+void floyd_steinberg(Image& img);
 
 int main(int argc, char* argv[]) {
     // Haben wir genuegend Argumente?
@@ -49,4 +45,46 @@ int main(int argc, char* argv[]) {
     // okay
     std::cout << "Fertig!" << std::endl;
     return 0;
+}
+void threshold(Image& img) {
+    for (uint i = 0; i < img.height(); i++) {
+        for (uint j = 0; j < img.width(); j++) {
+            float* pixel = &img.at(i, j);
+            if (*pixel < 0.5) {
+                *pixel = 0;
+            } else
+                *pixel = 1;
+        }
+    }
+}
+void floyd_steinberg(Image& img) {
+    for (uint i = 0; i < img.height(); i++) {
+        for (uint j = 0; j < img.width(); j++) {
+            float old = img.at(i, j);
+            float err;
+
+            if (old < 0.5) {
+                img.at(i, j) = 0;
+                err = old;
+            } else {
+                img.at(i, j) = 1;
+                err = old - 1;
+            }
+            if (j < img.width() - 1) {
+                img.at(i, j + 1) = img.at(i, j + 1) + float(7. / 16.) * err;
+
+                if (i < img.height() - 1) {
+                    img.at(i + 1, j + 1) =
+                        img.at(i + 1, j + 1) + float(1. / 16.) * err;
+                }
+            }
+            if (i < img.height() - 1) {
+                img.at(i + 1, j) = img.at(i + 1, j) + float(5. / 16.) * err;
+                if (j > 0) {
+                    img.at(i + 1, j - 1) =
+                        img.at(i + 1, j - 1) + float(3. / 16.) * err;
+                }
+            }
+        }
+    }
 }

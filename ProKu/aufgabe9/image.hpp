@@ -21,7 +21,7 @@ class Image {
     uint height() const;
     uint width() const;
 
-    float& Image::at(int i, int j);
+    float& at(uint i, uint j);
     bool write(const char* name) const;
 };  // class Image
 

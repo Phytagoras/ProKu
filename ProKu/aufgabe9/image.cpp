@@ -13,7 +13,7 @@ Image::Image(uint width, uint height) {
     my_height = height;
     my_width = width;
     my_pixels = new float[my_height * my_width];
-    for (int i = 0; i < my_height * my_width; i++) {
+    for (uint i = 0; i < my_height * my_width; i++) {
         my_pixels[i] = 0;
     }
 }
@@ -24,7 +24,7 @@ Image::Image(const Image& oldImage) {
     my_height = oldImage.my_height;
     my_width = oldImage.my_width;
     my_pixels = new float[my_height * my_width];
-    for (int i = 0; i < my_height * my_width; i++) {
+    for (uint i = 0; i < my_height * my_width; i++) {
         my_pixels[i] = oldImage.my_pixels[i];
     }
 }
@@ -52,9 +52,9 @@ Image& Image::operator=(const Image& other) {
 uint Image::height() const { return my_height; }
 uint Image::width() const { return my_width; }
 
-float& Image::at(int i, int j) {
-    assert(0 <= i && my_height >= i);
-    assert(0 <= j && my_width >= j);
+float& Image::at(uint i, uint j) {
+    assert(my_height >= i);
+    assert(my_width >= j);
     return my_pixels[my_width * i + j];
 }
 
