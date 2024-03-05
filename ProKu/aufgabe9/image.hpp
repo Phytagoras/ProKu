@@ -14,7 +14,7 @@ class Image {
    public:
     Image();
     Image(uint width, uint height);
-    Image(uint width, uint height, const char* name);
+    Image(const char* name);
     Image(const Image& oldImage);
     Image& operator=(const Image& other);
     ~Image();

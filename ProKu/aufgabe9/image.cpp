@@ -12,12 +12,13 @@ Image::Image() {
 Image::Image(uint width, uint height) {
     my_height = height;
     my_width = width;
-    my_pixels = new float[0];
+    my_pixels = new float[my_height * my_width];
+    for (int i = 0; i < my_height * my_width; i++) {
+        my_pixels[i] = 0;
+    }
 }
-Image::Image(uint width, uint height, const char* name) {
-    my_height = height;
-    my_width = width;
-    my_pixels = read_jpeg(width, height, name);
+Image::Image(const char* name) {
+    my_pixels = read_jpeg(my_width, my_height, name);
 }
 Image::Image(const Image& oldImage) {
     my_height = oldImage.my_height;
@@ -51,12 +52,12 @@ Image& Image::operator=(const Image& other) {
 uint Image::height() const { return my_height; }
 uint Image::width() const { return my_width; }
 
-float& Image::at(int i, int j) { 
+float& Image::at(int i, int j) {
     assert(0 <= i && my_height >= i);
     assert(0 <= j && my_width >= j);
     return my_pixels[my_width * i + j];
 }
 
-bool Image::write(const char* name) const{
+bool Image::write(const char* name) const {
     return write_jpeg(my_width, my_height, my_pixels, name);
 }
