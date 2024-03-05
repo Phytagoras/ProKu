@@ -1,0 +1,7 @@
+{
+  "cmake.debugConfig": {
+    "args": [
+      "../bilder/bahn.jpg", "bahn_th.jpg", "bahn_fs.jpg"
+    ]
+  }
+}
