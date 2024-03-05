@@ -1,0 +1,12 @@
+{
+  "cmake.debugConfig": {
+    "args": [
+      "../bilder/bahn.jpg", "bahn_th.jpg", "bahn_fs.jpg"
+    ]
+},
+"files.associations": {
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
+}
+}
