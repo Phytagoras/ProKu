@@ -1,7 +1,6 @@
+#include <deque>  // std::deque
 #include <iostream>
-#include <string>     // std::string
-#include <deque>      // std::deque
-
+#include <string>  // std::string
 
 // Zerlegt einen Satz in eine deque aus Woertern
 //
@@ -15,11 +14,26 @@
 // \returns
 // Eine deque aus strings, welche die einzelnen Worte
 // von 'str' enthaelt
-std::deque<std::string> split(const std::string& str)
-{
+std::deque<std::string> split(const std::string& str) {
+    std::deque<std::string> words;
+    std::string word;
 
-  // TODO: implementier mich!
+    for (char ch : str) {
+        if (ch != ' ') {
+            word += ch;
+        } else {
+            if (!word.empty()) {
+                words.push_back(word);
+                word.clear();
+            }
+        }
+    }
 
+    if (!word.empty()) {
+        words.push_back(word);
+    }
+
+    return words;
 }
 
 // Kehrt die Buchstaben in einem string um
@@ -33,22 +47,29 @@ std::deque<std::string> split(const std::string& str)
 //
 // \returns
 // Der umgekehrte string
-std::string reverse(const std::string& str)
-{
-  // TODO: durch Implementierung ersetzen
-  return str;
+std::string reverse(const std::string& str) {
+    std::string reversed;
+    for (int i = str.length() - 1; i >= 0; --i) {
+        reversed += str[i];
+    }
+    return reversed;
 }
 
 // Kehrt die Buchstaben in jedem string einer deque um
 //
 // \param[in,out] words
 // Eine deque aus strings, welche umgekehrt werden sollen.
-void reverse_words(std::deque<std::string>& words)
-{
-  // TODO: implementier mich!
+void reverse_words(std::deque<std::string>& words) {
+    for (std::deque<std::string>::iterator it = words.begin();
+         it != words.end();
+         it++) {  // for (auto it = words.begin();it != words.end(); it++) mit
+                  // auto type deduction
+        *it = reverse(*it);
+    }
 }
 
-// Fuegt eine deque aus strings zu einem mit Leerzeichen getrennten string zusammen
+// Fuegt eine deque aus strings zu einem mit Leerzeichen getrennten string
+// zusammen
 //
 // Beispiel:
 // Eingabe: ["foo", "bar"]
@@ -59,30 +80,38 @@ void reverse_words(std::deque<std::string>& words)
 //
 // \returns
 // Der zusammengesetzte string
-std::string join(const std::deque<std::string>& words)
-{
-  // TODO: durch Implementierung ersetzen
-  return words.front();
+std::string join(const std::deque<std::string>& words) {
+    std::string result;
+
+    // Iteriere über alle Wörter außer dem letzten
+    for (auto it = words.begin(); it != words.end(); ++it) {
+        result += *it;  // for( std::deque<std::string>::const_iterator ...
+        if (std::next(it) !=
+            words.end()) {  // Überprüfe, ob es nicht das letzte Wort ist
+            result += " ";
+        }
+    }
+
+    return result;
 }
 
 // Die main Funktion
-int main()
-{
-  // Eingabe-Text
-  const std::string text = "eht kciuq nworb xof spmuj revo a yzal god";
+int main() {
+    // Eingabe-Text
+    const std::string text = "eht kciuq nworb xof spmuj revo a yzal god";
 
-  // Zerlege in Worte
-  //std::deque<std::string> words = split(text);
+    // Zerlege in Worte
+    std::deque<std::string> words = split(text);
 
-  // Worte umkehren
-  //reverse_words(words);
+    // Worte umkehren
+    reverse_words(words);
 
-  // Worte zusammenfuegen
-  //std::string rev_text = join(words);
+    // Worte zusammenfuegen
+    std::string rev_text = join(words);
 
-  // Ausgabe
-  //std::cout << rev_text << std::endl;
+    // Ausgabe
+    std::cout << rev_text << std::endl;
 
-  // okay
-  return 0;
+    // okay
+    return 0;
 }
