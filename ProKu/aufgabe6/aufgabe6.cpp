@@ -55,27 +55,25 @@ int main(int argc, const char *argv[]) {
                                                     cx, cy, rmax, kmax);
                                                 pixelVal[row * breite + col] =
                                                     value;
-                                                // std::cout << row << "  " <<
-                                                // col<< std::endl;
+                                                // std::cout << row << "  " << col<< std::endl;
                                             }
                                         }
-                                        bool writeJpeg = write_jpeg(
-                                            uint(breite), uint(hoehe), pixelVal,
-                                            dateiNAme);
+                                        bool writeJpeg =
+                                                     write_jpeg( uint(breite),
+                                                    uint(hoehe),
+                                                    pixelVal,
+                                                     dateiNAme);
                                         // std::cout << std::fixed
                                         //           << std::setprecision(2);
-                                        // for (int row = 0; row < hoehe; row++)
-                                        // {
+                                        // for (int row = 0; row < hoehe; row++) {
                                         //     std::cout
                                         //         << "| "
-                                        //         << pixelVal[row * breite +
-                                        //         0];
+                                        //         << pixelVal[row * breite + 0];
                                         //     for (int col = 1; col < breite;
                                         //          col++) {
                                         //         std::cout
                                         //             << "     "
-                                        //             << pixelVal[row * breite
-                                        //             +
+                                        //             << pixelVal[row * breite +
                                         //                         col];
                                         //     }
                                         //     std::cout << " |" << std::endl

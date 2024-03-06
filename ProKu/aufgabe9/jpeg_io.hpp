@@ -22,8 +22,7 @@
 /// Das Heap-Array, welches von dieser Funktion zurueckgegeben wird,
 /// muss vom Benutzer dealloziiert werden, sobald es nicht mehr
 /// benoetigt wird.
-float* read_jpeg(unsigned int& width, unsigned int& height,
-                 const char* filename);
+float* read_jpeg(unsigned int& width, unsigned int& height, const char* filename);
 
 ///
 /// Schreibt ein Bild in eine JPEG-Datei.
@@ -43,8 +42,7 @@ float* read_jpeg(unsigned int& width, unsigned int& height,
 /// \returns
 /// true, falls die Datei erfolgreich gespeichert wurde, oder
 /// false, falls ein Fehler aufgetreten ist.
-bool write_jpeg(const unsigned int width, const unsigned int height,
-                const float* pixels, const char* filename);
+bool write_jpeg(const unsigned int width, const unsigned int height, const float* pixels, const char* filename);
 
 ///
 /// Liest ein Bild aus einer JPEG-Datei.
@@ -87,7 +85,6 @@ float* read_jpeg(unsigned int& width, unsigned int& height);
 /// \returns
 /// true, falls die Datei erfolgreich gespeichert wurde, oder
 /// false, falls ein Fehler aufgetreten ist.
-bool write_jpeg(const unsigned int width, const unsigned int height,
-                const float* pixels);
+bool write_jpeg(const unsigned int width, const unsigned int height, const float* pixels);
 
-#endif  // PROKU_JPEG_IO_HPP
+#endif // PROKU_JPEG_IO_HPP
