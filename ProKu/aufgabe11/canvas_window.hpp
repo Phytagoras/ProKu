@@ -2,28 +2,26 @@
 #ifndef PROKU_CANVAS_WINDOW_HPP
 #define PROKU_CANVAS_WINDOW_HPP
 
+#include <X11/Xlib.h>
+#include <X11/Xos.h>
+#include <X11/Xutil.h>
+
 #include "canvas.hpp"
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/Xos.h>
-
-namespace Proku
-{
-  /**
-   * \brief Klasse zur Verwaltung eines Zeichen-Fensters
-   *
-   * Diese Klasse implementiert die Canvas-Schnittstelle und bietet einen
-   * Wrapper fuer das X-Fenstersystem, welches die Zeichenbefehle aus der
-   * Basisklasse in einem graphischen Fenster umsetzt.
-   *
-   * Zusaetzlich bietet diese Klasse eine ausgewaehlte Menge an sogenannten
-   * Event-Handler-Methoden, welche aufgerufen werden, wenn der Benutzer
-   * ein bestimmtes Ereignis im Fenster ausloest, wie z.B. einen Tastendruck.
-   */
-  class CanvasWindow : public Canvas
-  {
-  private:
+namespace Proku {
+/**
+ * \brief Klasse zur Verwaltung eines Zeichen-Fensters
+ *
+ * Diese Klasse implementiert die Canvas-Schnittstelle und bietet einen
+ * Wrapper fuer das X-Fenstersystem, welches die Zeichenbefehle aus der
+ * Basisklasse in einem graphischen Fenster umsetzt.
+ *
+ * Zusaetzlich bietet diese Klasse eine ausgewaehlte Menge an sogenannten
+ * Event-Handler-Methoden, welche aufgerufen werden, wenn der Benutzer
+ * ein bestimmtes Ereignis im Fenster ausloest, wie z.B. einen Tastendruck.
+ */
+class CanvasWindow : public Canvas {
+   private:
     // Ein ganzer Batzen an seltsam klingenden internen Member-Variablen, die
     // uns Objekt-Orientierung sei Dank nicht die Bohne interessieren... :)
     Display* display;
@@ -34,7 +32,7 @@ namespace Proku
     int wnd_width, wnd_height, wnd_depth;
     bool redraw_flag;
 
-  public:
+   public:
     /**
      * \brief Erstellt ein Fenster mit gegebenen Titel
      *
@@ -47,7 +45,8 @@ namespace Proku
      * \param[in] height
      * Die gewuenschte Hoehe des Fensters (Standard: 480)
      */
-    explicit CanvasWindow(const std::string& title, int width = 640, int height = 480);
+    explicit CanvasWindow(const std::string& title, int width = 640,
+                          int height = 480);
     /// Kopierschutz
     CanvasWindow(const CanvasWindow&) = delete;
     /// Kopierschutz
@@ -86,7 +85,7 @@ namespace Proku
      */
     void redraw();
 
-  protected:
+   protected:
     ///////////////////////////////////////////////////////////////////////////
     // Event-Handler Methoden
     ///////////////////////////////////////////////////////////////////////////
@@ -103,9 +102,7 @@ namespace Proku
      * Fensters zu bewirken, sollte stattdessen die "redraw()" Funktion
      * genutzt werden.
      */
-    virtual void on_paint()
-    {
-    }
+    virtual void on_paint() {}
 
     /**
      * \brief Wird aufgerufen, wenn die Fenstergroesse geaendert wurde
@@ -113,9 +110,7 @@ namespace Proku
      * \param[in] width, height
      * Die neue Breite und Hoehe des Fensters
      */
-    virtual void on_resize(int width, int height)
-    {
-    }
+    virtual void on_resize(int width, int height) {}
 
     /**
      * \brief Wird aufgerufen, wenn eine Taste auf der Tastatur gedrueckt wurde.
@@ -123,12 +118,11 @@ namespace Proku
      * \param[in] keycode
      * Der Code der gedrueckten Taste.
      */
-    virtual void on_key_press(int keycode)
-    {
-    }
+    virtual void on_key_press(int keycode) {}
 
     /**
-     * \brief Wird aufgerufen, wenn eine Maustaste gedrueckt oder losgelassen wurde.
+     * \brief Wird aufgerufen, wenn eine Maustaste gedrueckt oder losgelassen
+     * wurde.
      *
      * \param[in] x,y
      * Die aktuellen Koordinaten des Mauszeigers,
@@ -138,11 +132,10 @@ namespace Proku
      * Der Code der betroffenen Maustaste
      *
      * \param[in] pressed
-     * Gibt an, ob die Maustaste gedrueckt (\c true) oder losgelassen (\c false) wurde.
+     * Gibt an, ob die Maustaste gedrueckt (\c true) oder losgelassen (\c false)
+     * wurde.
      */
-    virtual void on_mouse_button(int x, int y, int button, bool pressed)
-    {
-    }
+    virtual void on_mouse_button(int x, int y, int button, bool pressed) {}
 
     /**
      * \brief Wird aufgerufen, wenn der Mauszeiger im Fenster bewegt wurde.
@@ -151,12 +144,9 @@ namespace Proku
      * Die aktuellen Koordinaten des Mauszeigers,
      * relativ zur oberen linken Fensterecke.
      */
-    virtual void on_mouse_motion(int x, int y)
-    {
-    }
+    virtual void on_mouse_motion(int x, int y) {}
 
-
-  public:
+   public:
     ///////////////////////////////////////////////////////////////////////////
     // Implementierung der Schnittstelle "Canvas"
     ///////////////////////////////////////////////////////////////////////////
@@ -183,7 +173,7 @@ namespace Proku
     virtual void draw_circle(int x, int y, int radius) override;
     /// \see Canvas::fill_circle()
     virtual void fill_circle(int x, int y, int radius) override;
-  }; // class CanvasWindow
-} // namespace Proku
+};  // class CanvasWindow
+}  // namespace Proku
 
-#endif // PROKU_CANVAS_WINDOW_HPP
+#endif  // PROKU_CANVAS_WINDOW_HPP

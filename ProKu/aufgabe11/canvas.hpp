@@ -4,21 +4,18 @@
 
 #include <string>
 
-namespace Proku
-{
-  /**
-   * \brief Schnittstelle einer Leinwand
-   *
-   * Diese abstrakte Klasse definiert eine Schnittstelle fuer eine Leinwand,
-   * auf welcher mit Hilfe der zur Verfuegung gestellten Member-Funktionen
-   * gezeichnet werden kann.
-   */
-  class Canvas
-  {
-  public:
+namespace Proku {
+/**
+ * \brief Schnittstelle einer Leinwand
+ *
+ * Diese abstrakte Klasse definiert eine Schnittstelle fuer eine Leinwand,
+ * auf welcher mit Hilfe der zur Verfuegung gestellten Member-Funktionen
+ * gezeichnet werden kann.
+ */
+class Canvas {
+   public:
     /// virtueller leerer Destruktor
-    virtual ~Canvas()
-    {}
+    virtual ~Canvas() {}
 
     /// Gibt die aktuelle Breite der Leinwand zurueck.
     virtual int get_width() const = 0;
@@ -36,7 +33,7 @@ namespace Proku
 
     /**
      * \brief Beendet das Zeichnen auf der Leinwand.
-     * 
+     *
      * Diese Funktion muss aufgerufen werden, nachdem
      * die letzte Zeichen-Funktion aufgerufen wurde.
      */
@@ -121,7 +118,7 @@ namespace Proku
      * Der Radius des Kreises. Muss > 0 sein.
      */
     virtual void fill_circle(int x, int y, int radius) = 0;
-  }; // class Canvas
-} // namespace Proku
+};  // class Canvas
+}  // namespace Proku
 
-#endif // PROKU_CANVAS_HPP
+#endif  // PROKU_CANVAS_HPP
