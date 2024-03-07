@@ -5,7 +5,7 @@
 
 // TODO: Fuell mich mit Leben!
 
-class Rectangle : Shape {
+class Rectangle : public Proku::Shape {
    private:
     int x, y;
     int breite, hoehe;
@@ -29,10 +29,10 @@ class Rectangle : Shape {
         breite = pBrei;
         hoehe = oHoe;
     }
-    void draw(Proku::Canvas& canvas) override {
+    void draw(Proku::Canvas& canvas) const override {
         canvas.draw_rect(x, y, breite, hoehe);
     }
-    bool hit_test(int px, int py) override {
+    bool hit_test(int px, int py) const override {
         return (px > x && px < x + breite && py > y && py < y + hoehe);
     }
     void move_by(int dx, int dy) override {
@@ -40,7 +40,7 @@ class Rectangle : Shape {
         y = y + dy;
     }
 };
-class Circle : Shape {
+class Circle : public Proku::Shape {
    private:
     int x, y;
     int radius;
@@ -61,11 +61,10 @@ class Circle : Shape {
         y = pY;
         radius = pR;
     }
-    void draw(Proku::Canvas& canvas) override {
-        canvas.select_color(0, 0, 0);
+    void draw(Proku::Canvas& canvas) const override {
         canvas.draw_circle(x, y, radius);
     }
-    bool hit_test(int px, int py) override {
+    bool hit_test(int px, int py) const override {
         return (((px - x) * (px - x) + (py - y) * (py - y)) < radius * radius);
     }
     void move_by(int dx, int dy) override {
@@ -101,7 +100,7 @@ class ShapeWindow : public Proku::CanvasWindow {
                 this->select_color(1, 0, 0);
             else
                 this->select_color(0, 0, 0);
-            if (it) *it->draw(this);
+            (*it)->draw(*this);
             index++;
         }
 
@@ -115,7 +114,7 @@ class ShapeWindow : public Proku::CanvasWindow {
             int index = 0;
             selected = -1;
             for (auto it = shapes.begin(); it != shapes.end(); it++) {
-                if (*it->test_hit()) selected = index;
+                if ((*it)->hit_test(x, y)) selected = index;
                 index++;
             }
             this->redraw();
@@ -127,7 +126,7 @@ class ShapeWindow : public Proku::CanvasWindow {
             int index = 0;
             for (auto it = shapes.begin(); it != shapes.end(); it++) {
                 if (index == selected) {
-                    *it->move_by(x - mousePositionX, y - mousePositionY);
+                    (*it)->move_by(x - mousePositionX, y - mousePositionY);
                     this->redraw();
                     break;
                 }
@@ -139,36 +138,48 @@ class ShapeWindow : public Proku::CanvasWindow {
     }
     virtual void on_key_press(int keycode) override {
         switch (keycode) {
-            case 1:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 10:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Rectangle(mousePositionX, mousePositionY, 15, 10));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case 2:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 11:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Rectangle(mousePositionX, mousePositionY, 40, 20));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case 3:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 12:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Rectangle(mousePositionX, mousePositionY, 90, 30));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case 4:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 13:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Circle(mousePositionX, mousePositionY, 15));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case 5:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 14:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Circle(mousePositionX, mousePositionY, 35));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case 6:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 15:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 shapes.push_back(
                     new Circle(mousePositionX, mousePositionY, 95));
+                selected = int(shapes.size()) - 1;
+                this->redraw();
                 break;
-            case pfO:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 111:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 if (selected != -1) {
                     int index = 0;
                     for (auto it = shapes.begin(); it != shapes.end(); it++) {
                         if (index == selected) {
-                            *it->move_by(0, -10);
+                            (*it)->move_by(0, -10);
                             this->redraw();
                             break;
                         }
@@ -176,12 +187,12 @@ class ShapeWindow : public Proku::CanvasWindow {
                     }
                 }
                 break;
-            case pfL:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 113:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 if (selected != -1) {
                     int index = 0;
                     for (auto it = shapes.begin(); it != shapes.end(); it++) {
                         if (index == selected) {
-                            *it->move_by(-10, 0);
+                            (*it)->move_by(-10, 0);
                             this->redraw();
                             break;
                         }
@@ -189,12 +200,12 @@ class ShapeWindow : public Proku::CanvasWindow {
                     }
                 }
                 break;
-            case pfR:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 114:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 if (selected != -1) {
                     int index = 0;
                     for (auto it = shapes.begin(); it != shapes.end(); it++) {
                         if (index == selected) {
-                            *it->move_by(10, 0);
+                            (*it)->move_by(10, 0);
                             this->redraw();
                             break;
                         }
@@ -202,12 +213,12 @@ class ShapeWindow : public Proku::CanvasWindow {
                     }
                 }
                 break;
-            case pfU:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 116:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 if (selected != -1) {
                     int index = 0;
                     for (auto it = shapes.begin(); it != shapes.end(); it++) {
                         if (index == selected) {
-                            *it->move_by(0, 10);
+                            (*it)->move_by(0, 10);
                             this->redraw();
                             break;
                         }
@@ -215,9 +226,9 @@ class ShapeWindow : public Proku::CanvasWindow {
                     }
                 }
                 break;
-            case del:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+            case 22:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
                 if (selected != -1) {
-                    deleteShape(selected);
+                    this->deleteShape(selected);
                     selected = -1;
                     this->redraw();
                 }
@@ -226,13 +237,14 @@ class ShapeWindow : public Proku::CanvasWindow {
             default:
                 break;
         }
-        void deleteShape(int pIndex) {
+        
+    }void deleteShape(int pIndex) {
             int index = 0;
-            auto it = myDeque.begin();
-            while (it != myDeque.end()) {
+            auto it = shapes.begin();
+            while (it != shapes.end()) {
                 if (index == pIndex) {
-                    delete it;
-                    it = myDeque.erase(
+                    delete *it;
+                    it = shapes.erase(
                         it);  // Lösche das aktuelle Element und erhalte den
                               // Iterator auf das nächste Element zurück
                 } else {
@@ -241,10 +253,9 @@ class ShapeWindow : public Proku::CanvasWindow {
                 index++;
             }
         }
-    }
 
    private:
-    std::deque<Shape*> shapes;
+    std::deque<Proku::Shape*> shapes;
     int mousePositionX, mousePositionY;
     int selected;
     bool isMousePressed;
