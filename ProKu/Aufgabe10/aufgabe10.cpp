@@ -49,7 +49,7 @@ std::deque<std::string> split(const std::string& str) {
 // Der umgekehrte string
 std::string reverse(const std::string& str) {
     std::string reversed;
-    for (int i = str.length() - 1; i >= 0; --i) {
+    for (int i = int(str.length()) - 1; i >= 0; --i) {
         reversed += str[i];
     }
     return reversed;
