@@ -30,7 +30,6 @@ class Rectangle : Shape {
         hoehe = oHoe;
     }
     void draw(Proku::Canvas& canvas) override {
-        canvas.select_color(0, 0, 0);
         canvas.draw_rect(x, y, breite, hoehe);
     }
     bool hit_test(int px, int py) override {
@@ -79,6 +78,9 @@ class ShapeWindow : public Proku::CanvasWindow {
    public:
     /// Konstruktor
     ShapeWindow() : Proku::CanvasWindow("ShapeWindow", 640, 480) {
+        isMousePressed = false;
+        mousePositionX = 0;
+        mousePositionY = 0;
         selected = -1;
         shapes.push_back(new Rectangle());
         shapes.push_back(new Circle());
@@ -93,9 +95,14 @@ class ShapeWindow : public Proku::CanvasWindow {
 
         // Beginne Zeichnung
         this->paint_begin();
-
+        int index = 0;
         for (auto it = shapes.begin(); it != shapes.end(); it++) {
-            *it.draw(this);
+            if (index == selected)
+                this->select_color(1, 0, 0);
+            else
+                this->select_color(0, 0, 0);
+            if (it) *it->draw(this);
+            index++;
         }
 
         // Beende Zeichnung
@@ -103,15 +110,144 @@ class ShapeWindow : public Proku::CanvasWindow {
     }
     virtual void on_mouse_button(int x, int y, int button,
                                  bool pressed) override {
-        for (auto it = shapes.begin(); it != shapes.end(); it++) {
-            *it.test_hit()  ///////////////////////////////////////////////HIER
-                            ///WEITERMACHEN
+        if (pressed) {
+            isMousePressed = true;
+            int index = 0;
+            selected = -1;
+            for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                if (*it->test_hit()) selected = index;
+                index++;
+            }
+            this->redraw();
+        } else
+            isMousePressed = false;
+    }
+    virtual void on_mouse_motion(int x, int y) override {
+        if (isMousePressed) {
+            int index = 0;
+            for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                if (index == selected) {
+                    *it->move_by(x - mousePositionX, y - mousePositionY);
+                    this->redraw();
+                    break;
+                }
+                index++;
+            }
+        }
+        mousePositionX = x;
+        mousePositionY = y;
+    }
+    virtual void on_key_press(int keycode) override {
+        switch (keycode) {
+            case 1:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Rectangle(mousePositionX, mousePositionY, 15, 10));
+                break;
+            case 2:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Rectangle(mousePositionX, mousePositionY, 40, 20));
+                break;
+            case 3:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Rectangle(mousePositionX, mousePositionY, 90, 30));
+                break;
+            case 4:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Circle(mousePositionX, mousePositionY, 15));
+                break;
+            case 5:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Circle(mousePositionX, mousePositionY, 35));
+                break;
+            case 6:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                shapes.push_back(
+                    new Circle(mousePositionX, mousePositionY, 95));
+                break;
+            case pfO:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                if (selected != -1) {
+                    int index = 0;
+                    for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                        if (index == selected) {
+                            *it->move_by(0, -10);
+                            this->redraw();
+                            break;
+                        }
+                        index++;
+                    }
+                }
+                break;
+            case pfL:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                if (selected != -1) {
+                    int index = 0;
+                    for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                        if (index == selected) {
+                            *it->move_by(-10, 0);
+                            this->redraw();
+                            break;
+                        }
+                        index++;
+                    }
+                }
+                break;
+            case pfR:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                if (selected != -1) {
+                    int index = 0;
+                    for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                        if (index == selected) {
+                            *it->move_by(10, 0);
+                            this->redraw();
+                            break;
+                        }
+                        index++;
+                    }
+                }
+                break;
+            case pfU:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                if (selected != -1) {
+                    int index = 0;
+                    for (auto it = shapes.begin(); it != shapes.end(); it++) {
+                        if (index == selected) {
+                            *it->move_by(0, 10);
+                            this->redraw();
+                            break;
+                        }
+                        index++;
+                    }
+                }
+                break;
+            case del:  // MUSS NOCH AUF DIE RICHTIGEN CODES GESETZT WERDEN
+                if (selected != -1) {
+                    deleteShape(selected);
+                    selected = -1;
+                    this->redraw();
+                }
+                break;
+
+            default:
+                break;
+        }
+        void deleteShape(int pIndex) {
+            int index = 0;
+            auto it = myDeque.begin();
+            while (it != myDeque.end()) {
+                if (index == pIndex) {
+                    delete it;
+                    it = myDeque.erase(
+                        it);  // Lösche das aktuelle Element und erhalte den
+                              // Iterator auf das nächste Element zurück
+                } else {
+                    it++;  // Bewege den Iterator zum nächsten Element
+                }
+                index++;
+            }
         }
     }
 
    private:
     std::deque<Shape*> shapes;
+    int mousePositionX, mousePositionY;
     int selected;
+    bool isMousePressed;
 };  // class ShapeWindow
 
 int main() {
